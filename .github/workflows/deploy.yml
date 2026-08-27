@@ -1,0 +1,53 @@
+name: CI/CD pipeline
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get code
+        uses: actions/checkout@v4
+      
+      - name: setup node.js
+        usess: actions/setup-node@v4
+        with:
+          node-version: 22
+      
+      - name: install dependencies
+        working-directory: frontend
+        run: npm install
+      
+      - name: build 
+        working-drectory: frontend
+        env: 
+            VITE_API_URL: ${{ secrets.VITE_API_URL}}
+  
+
+  build-backend:
+     name: build backend
+     runs-on: ubuntu-latest
+     steps:
+      - name: get code
+        uses: actions/checkout@v4
+      
+      - name: install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: 3.14
+      
+      - name: install dependencies
+        working-directory: backend
+        run: uv sync
+
+      - name: run tests
+        working-directory: backend
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL}}
+          JWT_SECRET: ${{ secrets.JWT_SECRET}}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY}}
+          CODER_MODEL: ${{ secrets.CODER_MODEL}}
+          PLANNER_MODEL: ${{ secrets.PLANNER_MODEL}}
+        run: uv run pytest  
