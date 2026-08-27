@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
       
       - name: setup node.js
-        usess: actions/setup-node@v4
+        uses: actions/setup-node@v4
         with:
           node-version: 22
       
@@ -21,9 +21,10 @@ jobs:
         run: npm install
       
       - name: build 
-        working-drectory: frontend
+        working-directory: frontend
         env: 
             VITE_API_URL: ${{ secrets.VITE_API_URL}}
+        run: npm run build
   
 
   build-backend:
@@ -46,7 +47,7 @@ jobs:
         working-directory: backend
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL}}
-          JWT_SECRET: ${{ secrets.JWT_SECRET}}
+          JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY}}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY}}
           CODER_MODEL: ${{ secrets.CODER_MODEL}}
           PLANNER_MODEL: ${{ secrets.PLANNER_MODEL}}
