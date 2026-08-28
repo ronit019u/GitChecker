@@ -5,7 +5,7 @@ from fastapi.responses import RedirectResponse, Response
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.config import GITHUB_CLIENT_ID
+from src.config import GITHUB_CLIENT_ID, FRONTEND_URL, BACKEND_URL
 from src.gitchecker.auth.dependencies import get_currentUser_id
 from src.gitchecker.auth.github_oauth import get_user_info, git_token
 from src.gitchecker.auth.security import create_token
@@ -14,7 +14,7 @@ from src.gitchecker.database.models import User
 
 # needs to be in .env
 router = APIRouter(prefix="/auth", tags=["auth"])
-REDIRECT_URL = "http://localhost:8000/auth/callback"
+REDIRECT_URL = f"{BACKEND_URL}/auth/callback"
 
 
 @router.get("/login")
@@ -30,7 +30,7 @@ async def github_login():
 
 @router.get("/callback")
 async def github_callback(code: str, db: AsyncSession = Depends(get_session)):
-    url = "http://localhost:5173/auth/callback"
+    url = f"{FRONTEND_URL}/auth/callback"
     access_token = await git_token(code)
     profile = await get_user_info(access_token)
 
