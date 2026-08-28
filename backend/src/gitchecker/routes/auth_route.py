@@ -55,6 +55,7 @@ async def github_callback(code: str, db: AsyncSession = Depends(get_session)):
         httponly=True,
         samesite="lax",
         max_age=60 * 60 * 24,
+        secure=True,
     )
     return redirect
 
