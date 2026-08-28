@@ -53,7 +53,7 @@ async def github_callback(code: str, db: AsyncSession = Depends(get_session)):
         key="session_token",
         value=jwt,
         httponly=True,
-        samesite="lax",
+        samesite="none",
         max_age=60 * 60 * 24,
         secure=True,
     )
