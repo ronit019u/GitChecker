@@ -4,7 +4,7 @@ An AI-powered tool that clones a public GitHub repo, finds real bugs related to 
 
 **Live Demo:** [https://git-checker.vercel.app](https://git-checker.vercel.app) **Backend API:** [https://api.47-129-86-136.nip.io](https://api.47-129-86-136.nip.io)
 
-> Note: the backend runs on a small AWS EC2 instance behind nginx. If it's been idle, the first request may take a few seconds while Docker images are warmed up.
+> Note: the backend runs on AWS EC2 t3 small instance.
 
 ---
 
