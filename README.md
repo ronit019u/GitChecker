@@ -66,7 +66,7 @@ The coder always re-reads files itself rather than trusting the planner's summar
 1. The repo is cloned to a temporary directory
 2. The proposed fix is written into a **copy** of that directory (the original is never touched until verification passes)
 3. The language and the correct install/test command are detected — including walking up from the fixed file's own directory to find the nearest manifest (`package.json`, `requirements.txt`, etc.), so fixes inside a `backend/` or `frontend/` subfolder of a monorepo are still verified correctly
-4. A fresh Docker container (`python:3.13-slim` or `node:22-slim`) installs dependencies and runs the real test suite (or entry point if no tests are found)
+4. A fresh Docker container (`python:3.13-slim`, `python:3.14-slim` or `node:22-slim`) installs dependencies and runs the real test suite (or entry point if no tests are found)
 5. Only if the container exits successfully is the fix reported as verified and saved to history
 
 If the detected language isn't supported for sandboxing, the fix is still shown, clearly labeled as **unverified**, with an explicit choice to save it anyway.
@@ -87,7 +87,7 @@ If the detected language isn't supported for sandboxing, the fix is still shown,
 
 ### Prerequisites
 - Python 3.13+ with [uv](https://docs.astral.sh/uv/)
-- Node.js 18+
+- Node.js 22+
 - Docker (running locally — required for fix verification)
 - A PostgreSQL database (or a free [Neon](https://neon.tech) instance)
 - An [Anthropic API key](https://console.anthropic.com/)
@@ -106,7 +106,7 @@ Create a `.env` file in `backend/`:
 DATABASE_URL=your_postgres_connection_string
 JWT_SECRET=your_jwt_secret
 ANTHROPIC_API_KEY=your_anthropic_api_key
-PLANNER_MODEL=claude-sonnet-4-6
+PLANNER_MODEL=claude-sonnet-5
 CODER_MODEL=claude-sonnet-4-6
 GITHUB_CLIENT_ID=your_github_oauth_client_id
 GITHUB_CLIENT_SECRET=your_github_oauth_client_secret
