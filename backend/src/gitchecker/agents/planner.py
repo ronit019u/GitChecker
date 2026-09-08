@@ -149,19 +149,24 @@ format_prompt = ChatPromptTemplate.from_messages(
 
 
 async def planner_execute(repo_path: Path, task: str) -> PlannerResponse:
+    print(f"DEBUG task repr: {task!r}")
+    if not task or not task.strip():
+        raise ValueError("task must not be empty")
+
     set_repo_context(repo_path)
 
     raw_response = await agent_executor.ainvoke({"task": task, "chat_history": []})
     output = raw_response["output"]
 
-    # chatAnthropic can sometimes gives output in a unfiltered list so we change the list into the string then parse it
-    # the if inside for loop is to ignore the mixed or unrelated stuff
     if isinstance(output, list):
         output_text = "".join(
             block.get("text", "") for block in output if isinstance(block, dict)
         )
     else:
         output_text = output
+
+    if not output_text or not output_text.strip():
+        return PlannerResponse(issues=[])
+
     format_chain = format_prompt | structured_response
     return await format_chain.ainvoke({"analysis": output_text})
-
