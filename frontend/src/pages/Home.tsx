@@ -131,7 +131,7 @@ export const Home = () => {
             )}
           </div>
           <div className="flex flex-col border-l border-border p-6 gap-10">
-            <h1 className="mb-1 font-mono text-lg">gitChecker</h1>
+            <h1 className="mb-1 font-mono text-lg">GitChecker</h1>
             <p className="font-mono text-sm text-text-muted">
               Paste a public repo url and describe the bug - we'll find it, fix
               it, and verify it.
