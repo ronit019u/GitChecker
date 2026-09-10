@@ -72,23 +72,6 @@ format_prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-
-from pathlib import Path
-
-from langchain_anthropic import ChatAnthropic
-from langchain_classic.agents import AgentExecutor, create_tool_calling_agent
-from langchain_core.prompts import ChatPromptTemplate
-from pydantic import BaseModel
-
-from src.config import ANTHROPIC_API_KEY, PLANNER_MODEL
-from src.gitchecker.agents.plannerTools import (
-    list_files,
-    read_repo_file,
-    set_repo_context,
-)
-from src.gitchecker.schema.check import Issue
-
-
 class PlannerResponse(BaseModel):
     issues: list[Issue]
 
@@ -149,10 +132,6 @@ format_prompt = ChatPromptTemplate.from_messages(
 
 
 async def planner_execute(repo_path: Path, task: str) -> PlannerResponse:
-    print(f"DEBUG task repr: {task!r}")
-    if not task or not task.strip():
-        raise ValueError("task must not be empty")
-
     set_repo_context(repo_path)
 
     raw_response = await agent_executor.ainvoke({"task": task, "chat_history": []})
