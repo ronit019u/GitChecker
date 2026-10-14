@@ -24,7 +24,7 @@ def test_nocookie():
     assert "not logged in" in response.json()["detail"]
 
 
-def test_expirycookie():
+def test_invalid_cookie():
     response = client.get("/auth/me", cookies={"session_token": "garbage"})
     assert response.status_code == 401
     assert "invalid or expired session. Please login again" in response.json()["detail"]
