@@ -152,11 +152,10 @@ All `/check/*` routes and `/auth/me`/`/auth/logout` require authentication via t
 
 Unit tests focus on the deterministic, dependency-free core rather than trying to unit-test LLM or Docker-dependent code directly:
 
-- **Language & command detection** — extension mapping, config-file scanning, and nested-repo manifest lookup (walking up from the fixed file's directory)
-- **Fix application** — writing the corrected file into a repo copy, including edge cases like a missing target file
-- **Authentication boundary** — token creation/decoding (tampering, expiry, wrong-secret forgery), and route-level rejection of missing/invalid sessions
+- **Language & command detection** — extension mapping, config-file scanning, install/test/entry-point command selection, and nested-project manifest lookup (walking up from the fixed file's directory to the nearest `package.json` or `requirements.txt`)
+- **Authentication boundary** — GitHub login redirect, and route-level rejection of missing or invalid session cookies, plus acceptance of a valid session (with the database mocked)
 
-LLM-calling and Docker-dependent code paths (the agents themselves, sandbox execution) are covered through manual end-to-end testing against real repositories instead — including full-stack repos with nested `backend/`/`frontend` structures, repos with no bugs, unsupported languages, and a real open-source issue from a large codebase (`processing/p5.js`) to test behavior on unfamiliar, non-trivial code.
+LLM-calling and Docker-dependent code paths (the agents themselves, sandbox execution) are covered through manual end-to-end testing against real repositories instead, including full-stack repos with nested `backend/` and `frontend/` folders, repos with no bugs, unsupported languages, and a real open-source issue from a large codebase (`processing/p5.js`) to test behavior on unfamiliar, non-trivial code.
 
 Run tests:
 ```bash
