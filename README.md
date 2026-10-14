@@ -168,7 +168,6 @@ uv run pytest
 
 ## ⚠️ Known Limitations
 
-- **Not reliable for performance-regression bugs.** Tested against a real, maintainer-confirmed performance issue in a large open-source repo — the tool produced a plausible-sounding but incorrect root cause, since it reasons from static code reading rather than actual runtime profiling.
 - **One issue fixed at a time.** Each fix is verified against a fresh clone of the repo; fixes aren't chained or applied cumulatively across multiple issues in one session.
 - **Exact test-suite state, not fix-specific pass/fail.** Verification currently checks whether the full test suite exits cleanly after a fix, not whether the specific failing test related to the issue now passes in isolation.
 
