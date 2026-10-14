@@ -2,7 +2,7 @@
 
 Agentic AI tool that clones a public GitHub repo, finds real bugs related to a task you describe, and lets you pick one to fix — then verifies the fix by actually running your test suite inside an isolated Docker container.
 
-**Live Demo:** [https://git-checker.vercel.app](https://git-checker.vercel.app) **Backend API:** [https://api.47-129-86-136.nip.io](https://api.47-129-86-136.nip.io)
+**Live Demo:** [https://git-checker.vercel.app](https://git-checker.vercel.app) **Backend API:** [https://api.54-179-133-214.nip.io/](https://api.54-179-133-214.nip.io/)
 
 > Note: the backend runs on AWS EC2 t3 small instance.
 
