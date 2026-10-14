@@ -174,7 +174,6 @@ uv run pytest
 
 ## 🗺️ Roadmap
 
-- [ ] Diff-based before/after test comparison, instead of relying on full test-suite exit code
 - [ ] Support for additional languages in the sandbox
 - [ ] Session-grouped history (see all issues fixed from one repo check together)
 - [ ] Frontend test coverage
